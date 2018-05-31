@@ -1,0 +1,55 @@
+<div class="container" style="margin-top:20px;">
+  <form #calcForm="ngForm" (ngSubmit)="processOperation()">
+    <div class="row">
+      <div class="col-md-12" >
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" class="form-control" [(ngModel)]="calculation.FirstNumber"
+                   name="FirstNumber" id="FirstNumber" placeholder="Enter number"
+                   required pattern="[-+]?[0-9]*\.?[0-9]+" #FirstNumber="ngModel">
+            <div *ngIf="FirstNumber.errors && (FirstNumber.dirty || FirstNumber.touched)" class="alert alert-danger">
+              Field should have numeric format
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select class="form-control" [(ngModel)]="listOperation" (change)="SetOperation($event.target.value)" required >
+              <option *ngFor="let oneOperation of listOperation" [ngValue]="oneOperation.id">{{oneOperation.name}}</option>
+            </select>
+
+          </div>
+          <div class="col-md-3" >
+            <input type="text" class="form-control" [(ngModel)]="calculation.SecondNumber"
+                   name="SecondNumber" id="SecondNumber" placeholder="Enter number"
+                   required pattern="[-+]?[0-9]*\.?[0-9]+" #SecondNumber="ngModel">
+            <div *ngIf="SecondNumber.errors && (SecondNumber.dirty || SecondNumber.touched)" class="alert alert-danger">
+              Field should have numeric format
+            </div>
+          </div>
+          <div class="col-md-3" >
+           
+            <button type="submit" class="btn btn-success" [disabled]="!calcForm.form.valid">Calculate</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row" style="margin-top:30px;">
+          <div class="col-md-6">
+            <label for="name">Result:</label>
+            <label for="name" style="font-weight:bold">{{ calculation.OpertionResult }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
